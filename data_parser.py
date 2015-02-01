@@ -1,5 +1,6 @@
 # madeleine varner
 # january 29 2015
+# TODO: fix "gray_500x_CHURCHES_Google_Images_Inside-Our-Lady-of-Light-Church.jpg" exceptions
 
 import os, sys, string
 
@@ -47,6 +48,20 @@ def parse_line(line):
 		fixed_line += categ + exemp + sf + correctness + '\n'
 		return fixed_line
 	else:
+		print line_info[2]
+		# correctness
+		correctness = '\t0'
+		#print categ_num, line_info[4]
+		categ_num = '2'
+		if (categ_num == line_info[4]): 
+			correctness = '\t1'
+		categ = '\t' + categ_num
+		exemp = '\t' + 19
+		sf = '\t' + filename_info[2]
+		fixed_line = ''
+		fixed_line = line.rstrip()
+		fixed_line += categ + exemp + sf + correctness + '\n'
+
 		return line
 
 def parse_document(document):
@@ -62,9 +77,10 @@ def parse_document(document):
 
 	with open(document + "_new", 'w') as f:
 		print lines[5]
+		print linse
 		for i in xrange(6, len(lines)):
 			lines[i] = parse_line(lines[i])
-			print lines[i]
+			#print lines[i]
 		f.writelines(lines)
 
 def list_documents(directory):
